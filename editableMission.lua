@@ -95,10 +95,12 @@ quest playerMission begin
 			local data = playerMission.returnData();
 			
 			say_title(data["missionData"]["missionName"])
-			if (pc.getqf("playerMissionTime") < get_time()) then
-				syschat(string.format("You failed mission: %s.", data["missionData"]["missionName"]))
-				set_state("done");
-				return;
+			if (data["timeToComplete"][1]) then
+				if (pc.getqf("playerMissionTime") < get_time()) then
+					syschat(string.format("You failed mission: %s.", data["missionData"]["missionName"]))
+					set_state("done");
+					return;
+				end
 			end
 			
 			say("You still must kill:[ENTER]")
@@ -115,10 +117,12 @@ quest playerMission begin
 			local npcRace = npc.get_race();
 			local isMissionOver = true;
 			
-			if (pc.getqf("playerMissionTime") < get_time()) then
-				syschat(string.format("You failed mission: %s.", data["missionData"]["missionName"]))
-				set_state("done");
-				return;
+			if (data["timeToComplete"][1]) then
+				if (pc.getqf("playerMissionTime") < get_time()) then
+					syschat(string.format("You failed mission: %s.", data["missionData"]["missionName"]))
+					set_state("done");
+					return;
+				end
 			end
 			
 			local npcFlag = string.format("%s_%d", data["missionData"]["missionFlag"], npcRace);
